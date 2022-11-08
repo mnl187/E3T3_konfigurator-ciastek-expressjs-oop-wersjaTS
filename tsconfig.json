@@ -10,6 +10,9 @@
       "dom.iterable",
       "dom"
     ],
-    "outDir": "dist"
+    "outDir": "dist",
+    "moduleResolution": "Node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }

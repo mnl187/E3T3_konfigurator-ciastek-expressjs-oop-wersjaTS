@@ -1,5 +1,7 @@
-const handlebarsHelpers = {
-    findPrice: (entries, selectedItem) => {
+type Entries = [string, number][];
+
+export const handlebarsHelpers = {
+    findPrice: (entries: Entries, selectedItem) => {
         const found = entries.find(el => el[0] === selectedItem);
 
         if (!found) {
@@ -16,7 +18,3 @@ const handlebarsHelpers = {
 
     isInArray: (array, element) => array.includes(element),
 };
-
-module.exports = {
-    handlebarsHelpers,
-}

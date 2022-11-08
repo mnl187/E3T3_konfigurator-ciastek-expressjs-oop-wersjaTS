@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
-import * as hbs from 'express-handlebars';
+import {engine} from 'express-handlebars';
 import {HomeRouter} from "./routes/home";
 import {ConfiguratorRouter} from "./routes/configurator";
 import {OrderRouter} = from "./routes/order";
