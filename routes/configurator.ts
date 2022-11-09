@@ -3,7 +3,7 @@ import {CookieMakerApp} from "../index";
 
 
 class ConfiguratorRouter {
-    private router: Router = Router();
+    public readonly router: Router = Router();
     constructor(
         private cmapp: CookieMakerApp
     ) {
