@@ -10,10 +10,13 @@ import {handlebarsHelpers} = from "./utils/handlebars-helpers";
 
 
 export class CookieMakerApp {
-    app: Application;
+    private app: Application;
+    private data = {
+            COOKIE_BASES,
+            COOKIE_ADDONS,
+        };
 
     constructor() {
-        this._loadData()
         this._configureApp();
         this._setRoutes();
         this._run();
@@ -50,7 +53,7 @@ export class CookieMakerApp {
         });
     }
 
-    getAddonsFromReq(req: Request): void {
+    getAddonsFromReq(req: Request): any[] {
         const {cookieAddons} = req.cookies as {
             cookieAddons: string
         };
@@ -59,8 +62,8 @@ export class CookieMakerApp {
 
     getCookieSettings(req: Request) {
         const {cookieBase: base} = req.cookies as {
-            cookieBase: string
-        };;
+            cookieBase: string,
+        };
 
         const addons = this.getAddonsFromReq(req);
 
@@ -82,11 +85,7 @@ export class CookieMakerApp {
         };
     }
 
-    _loadData() {
-        this.data = {
-            COOKIE_BASES,
-            COOKIE_ADDONS,
-        };
+
     }
 }
 
