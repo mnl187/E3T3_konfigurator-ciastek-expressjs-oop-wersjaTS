@@ -6,7 +6,8 @@ import {COOKIE_BASES, COOKIE_ADDONS} from "./data/cookies-data";
 import {HomeRouter} from "./routes/home";
 import {ConfiguratorRouter} from "./routes/configurator";
 import {OrderRouter} = from "./routes/order";
-import {handlebarsHelpers} = from "./utils/handlebars-helpers";
+import {handlebarsHelpers};
+import {Entries} from "./types/entries";
 
 
 export class CookieMakerApp {
@@ -53,16 +54,23 @@ export class CookieMakerApp {
         });
     }
 
-    getAddonsFromReq(req: Request): any[] {
+    getAddonsFromReq(req: Request): string[] {
         const {cookieAddons} = req.cookies as {
-            cookieAddons: string
+            cookieAddons: string | undefined,
         };
         return cookieAddons ? JSON.parse(cookieAddons) : [];
     }
 
-    getCookieSettings(req: Request) {
+    getCookieSettings(req: Request) : {
+        addons: string[],
+        base: string,
+        sum: number,
+        allBases: Entries,
+        allAddons: Entries
+
+    }{
         const {cookieBase: base} = req.cookies as {
-            cookieBase: string,
+            cookieBase?: string,
         };
 
         const addons = this.getAddonsFromReq(req);
@@ -84,9 +92,7 @@ export class CookieMakerApp {
             allBases,
         };
     }
-
-
-    }
+}
 }
 
 new CookieMakerApp();

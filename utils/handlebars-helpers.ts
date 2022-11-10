@@ -1,4 +1,4 @@
-type Entries = [string, number][];
+import {Entries} from "../types/entries";
 
 export const handlebarsHelpers = {
     findPrice: (entries: Entries, selectedItem: string): number => {
