@@ -1,18 +1,19 @@
 import * as express from 'express';
-import {Application, json, static as expressStatic} from "express";
+import {Application, json, Request, Response, static as expressStatic} from "express";
 import * as cookieParser from 'cookie-parser';
 import {engine} from 'express-handlebars';
 import {COOKIE_BASES, COOKIE_ADDONS} from "./data/cookies-data";
-import {HomeRouter} from "./routes/home";
+
+// import {HomeRouter} from "./routes/home";
 import {ConfiguratorRouter} from "./routes/configurator";
-import {OrderRouter} = from "./routes/order";
+// import {OrderRouter} = from "./routes/order";
 import {handlebarsHelpers};
 import {Entries} from "./types/entries";
 
 
 export class CookieMakerApp {
     private app: Application;
-    private data = {
+    public readonly data = {
             COOKIE_BASES,
             COOKIE_ADDONS,
         };
@@ -67,8 +68,7 @@ export class CookieMakerApp {
         sum: number,
         allBases: Entries,
         allAddons: Entries
-
-    }{
+    } {
         const {cookieBase: base} = req.cookies as {
             cookieBase?: string,
         };
@@ -92,7 +92,6 @@ export class CookieMakerApp {
             allBases,
         };
     }
-}
 }
 
 new CookieMakerApp();

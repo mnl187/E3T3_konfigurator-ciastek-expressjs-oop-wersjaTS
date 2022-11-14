@@ -1,25 +1,24 @@
-import {Router} from "express";
+import {Router, Response, Request} from "express";
 import {CookieMakerApp} from "../index";
 
-
-class ConfiguratorRouter {
+export class ConfiguratorRouter {
     public readonly router: Router = Router();
     constructor(
-        private cmapp: CookieMakerApp
+        private cmapp: CookieMakerApp,
     ) {
         this.setUpRoutes();
     }
 
-    private setUpRoutes() {
+    private setUpRoutes(): void {
         this.router.get('/select-base/:baseName', this.selectBase);
         this.router.get('/add-addon/:addonName', this.addAddon);
         this.router.get('/delete-addon/:addonName', this.deleteAddon);
     }
 
-    private selectBase = (req: Request, res: Response) => {
+    private selectBase = (req: Request, res: Response) : void=> {
         const {baseName} = req.params;
 
-        if (this.cmapp.data.COOKIE_BASES[baseName]) {
+        if (!(this.cmapp.data.COOKIE_BASES as Record<string, number>)[baseName]) {
             return this.cmapp.showErrorPage(res, `There is no such base as ${baseName}`);
         }
 
@@ -30,11 +29,11 @@ class ConfiguratorRouter {
             });
     }
 
-    private addAddon = (req, res) => {
+    private addAddon = (req: Request, res: Response): void => {
         const {addonName} = req.params;
 
-        if (this.cmapp.data.COOKIE_ADDONS[addonName]) {
-            return this.cmapp.showErrorPage(`There is no such addon as ${addonName}.`);
+        if (!(this.cmapp.data.COOKIE_BASES as Record<string, number>)[addonName]) {
+            return this.cmapp.showErrorPage(res,`There is no such addon as ${addonName}.`);
         }
 
         const addons = this.cmapp.getAddonsFromReq(req);
@@ -52,7 +51,7 @@ class ConfiguratorRouter {
             });
     }
 
-    private deleteAddon = (req, res) => {
+    private deleteAddon = (req: Request, res: Response) => {
         const {addonName} = req.params;
 
         const oldAddons = this.cmapp.getAddonsFromReq(req);
